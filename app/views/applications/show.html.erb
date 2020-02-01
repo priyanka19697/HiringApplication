@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @application.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @application.email %>
+</p>
+
+<p>
+  <strong>Mobile:</strong>
+  <%= @application.mobile %>
+</p>
+
+<p>
+  <strong>Experience:</strong>
+  <%= @application.experience %>
+</p>
+
+<p>
+  <strong>Resume:</strong>
+  <%= @application.resume %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @application.status_id %>
+</p>
+
+<p>
+  <strong>Job:</strong>
+  <%= @application.job_id %>
+</p>
+
+<p>
+  <strong>Joining date:</strong>
+  <%= @application.joining_date %>
+</p>
+
+<p>
+  <strong>Rejection reason:</strong>
+  <%= @application.rejection_reason %>
+</p>
+
+<%= link_to 'Edit', edit_application_path(@application) %> |
+<%= link_to 'Back', applications_path %>

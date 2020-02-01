@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  application: one
+  user: one
+  scheduled_date: 2020-02-01 22:30:53
+  status: one
+  interview_feedback: MyText
+
+two:
+  application: two
+  user: two
+  scheduled_date: 2020-02-01 22:30:53
+  status: two
+  interview_feedback: MyText
