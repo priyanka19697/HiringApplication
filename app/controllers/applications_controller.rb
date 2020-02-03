@@ -15,6 +15,8 @@ class ApplicationsController < ApplicationController
   # GET /applications/new
   def new
     @application = Application.new
+    @status_list = Status.all
+    @job_list = Job.all
   end
 
   # GET /applications/1/edit

@@ -26,13 +26,14 @@
         <td><%= application.mobile %></td>
         <td><%= application.experience %></td>
         <td><%= application.resume %></td>
-        <td><%= application.status_id %></td>
-        <td><%= application.job_id %></td>
+        <td><%= application.status.name%></td>
+        <td><%= application.job.name %></td>
         <td><%= application.joining_date %></td>
         <td><%= application.rejection_reason %></td>
         <td><%= link_to 'Show', application %></td>
         <td><%= link_to 'Edit', edit_application_path(application) %></td>
         <td><%= link_to 'Destroy', application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
       </tr>
     <% end %>
   </tbody>

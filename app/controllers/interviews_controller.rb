@@ -15,6 +15,7 @@ class InterviewsController < ApplicationController
   # GET /interviews/new
   def new
     @interview = Interview.new
+
   end
 
   # GET /interviews/1/edit

@@ -27,12 +27,12 @@
 
 <p>
   <strong>Status:</strong>
-  <%= @application.status_id %>
+  <%= @application.status.name %>
 </p>
 
 <p>
   <strong>Job:</strong>
-  <%= @application.job_id %>
+  <%= @application.job.name%>
 </p>
 
 <p>
@@ -46,4 +46,6 @@
 </p>
 
 <%= link_to 'Edit', edit_application_path(@application) %> |
-<%= link_to 'Back', applications_path %>
+<%= link_to 'Back', applications_path %> |
+<%= link_to 'Setup Interview', new_interview_path(@application)%>
+
