@@ -10,35 +10,32 @@
       </ul>
     </div>
   <% end %>
-  <%= byebug%>
-  <div class="field">
-    <%= form.label :Application %>
-    <%= form.collection_select :application_id, Application.where(status_id: 1), :id, :name %>
-
+  <div class="field form-control">
+     <%= form.hidden_field :application_id, :value => params[:application_id] %>
   </div>
 
-  <div class="field">
+  <div class="field form-control">
     <%= form.label :Interviewer%>
     <%= form.collection_select :user_id,User.where(role_id:2), :id, :name %>
 
   </div>
 
-  <div class="field">
+  <div class="field form-control">
     <%= form.label :scheduled_date %>
     <%= form.datetime_select :scheduled_date %>
   </div>
 
-  <div class="field">
+  <div class="field form-control">
     <%= form.label :status %>
     <%= form.collection_select :status_id, Status.all, :id, :name %>
   </div>
 
-  <div class="field">
+  <div class="field form-control">
     <%= form.label :interview_feedback %>
     <%= form.text_area :interview_feedback %>
   </div>
 
-  <div class="actions">
+  <div class="actions btn btn-primary">
     <%= form.submit %>
   </div>
 <% end %>

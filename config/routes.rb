@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get 'manager', to: 'manager#index', as:'manager'
   get 'interviewer', to: 'interviewer#index', as:"interviewer"
   # get 'manager', to: 'manager#show'
-
+  get '/applications/:id/relese_offer_letter', to: 'applications#release_offer_mail', as: :release_offer_letter
   root to: "login#show"
+  resources :applications do
+    resources :interviews
+  end
 end

@@ -1,6 +1,6 @@
 class InterviewsController < ApplicationController
   before_action :set_interview, only: [:show, :edit, :update, :destroy]
-
+  # require "./Mailers/ScheduleInterviewMailer"
   # GET /interviews
   # GET /interviews.json
   def index
@@ -25,17 +25,28 @@ class InterviewsController < ApplicationController
   # POST /interviews
   # POST /interviews.json
   def create
-    @interview = Interview.new(interview_params)
-
-    respond_to do |format|
-      if @interview.save
-        format.html { redirect_to @interview, notice: 'Interview was successfully created.' }
-        format.json { render :show, status: :created, location: @interview }
-      else
-        format.html { render :new }
-        format.json { render json: @interview.errors, status: :unprocessable_entity }
-      end
-    end
+        @application = Application.find(params[:interview][:application_id])
+        @interviewer = User.find_by(params[:interview][:user_id])
+        @interview = current_user.interviews.build(interview_params)
+        @interview.application_id = @application.id
+        if @interview.save
+          ScheduleInterviewMailer.schedule_interview(@interviewer, @application, @interview).deliver_now
+          flash[:success] = "Interview created!"
+          redirect_to @application
+        else
+            render 'applications/show'
+        end
+    # @interview = Interview.new(interview_params)
+    # respond_to do |format|
+    #   if @interview.save
+    #     ScheduleInterviewMailer.schedule_interview(@interviewer, @application, @interview)
+    #     format.html { redirect_to @interview, notice: 'Interview was successfully created and email has been sent.' }
+    #     format.json { render :show, status: :created, location: @interview }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @interview.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /interviews/1
@@ -61,6 +72,20 @@ class InterviewsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # def release_offer_mail
+  #   byebug
+  #   @application = Application.find(params[:interview][:application_id])
+  #   @interviewer = User.find_by(params[:interview][:user_id])
+  #   if @interview.status.name == "ACCEPTED"
+  #     ScheduleInterviewMailer.release_offer_letter(@interviewer, @application).deliver_now
+  #     flash[:success] = "Offer extended"
+  #     redirect_to @application
+  #   else
+  #     flash[:error] = "Cannot extend an offer when application status is #{@application.status.name}"
+
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

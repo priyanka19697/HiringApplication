@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
   # GET /applications
   # GET /applications.json
   def index
-    @applications = Application.all
+    @applications = Application.where(status_id:1)
   end
 
   # GET /applications/1
@@ -21,6 +21,7 @@ class ApplicationsController < ApplicationController
 
   # GET /applications/1/edit
   def edit
+
   end
 
   # POST /applications
@@ -60,6 +61,20 @@ class ApplicationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to applications_url, notice: 'Application was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def release_offer_mail
+    byebug
+    @application = Application.find(params[:id])
+    # @interviewer = User.find_by(params[:interview][:user_id])
+    if @application.status.name == "ACCEPTED"
+      ScheduleInterviewMailer.release_offer_letter(@interviewer, @application).deliver_now
+      flash[:success] = "Offer extended"
+      redirect_to @application
+    else
+      flash[:error] = "Cannot extend an offer when application status is #{@application.status.name}"
+
     end
   end
 

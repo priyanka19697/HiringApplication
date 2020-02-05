@@ -47,5 +47,6 @@
 
 <%= link_to 'Edit', edit_application_path(@application) %> |
 <%= link_to 'Back', applications_path %> |
-<%= link_to 'Setup Interview', new_interview_path(@application)%>
+<%= link_to 'Setup Interview', new_application_interview_path(:application_id => @application.id)%> |
+<%= link_to 'Release Offer' , release_offer_letter_path %>
 
