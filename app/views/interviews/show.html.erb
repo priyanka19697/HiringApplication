@@ -2,12 +2,12 @@
 
 <p>
   <strong>Application:</strong>
-  <%= @interview.application_id %>
+  <%= @interview.application.name %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @interview.user_id %>
+  <%= @interview.user.name %>
 </p>
 
 <p>
@@ -17,7 +17,7 @@
 
 <p>
   <strong>Status:</strong>
-  <%= @interview.status_id %>
+  <%= @interview.status.name %>
 </p>
 
 <p>
@@ -26,6 +26,6 @@
 </p>
 
 <%= link_to 'Edit', edit_interview_path(@interview) %> |
-<%= link_to 'Back', interviews_path %>
-<%# <%= link_to 'Release Offer' , release_offer_letter_path %> %>
+<%= link_to 'Back', interviews_path if @user_role == "HIRING MANAGER" %>
+<%= link_to 'Back', scheduled_interviews_path if @user_role == "INTERVIEWER" %>
 

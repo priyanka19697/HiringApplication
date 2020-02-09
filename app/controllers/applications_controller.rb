@@ -64,17 +64,16 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def release_offer_mail
-    byebug
+  def release_offer
     @application = Application.find(params[:id])
     # @interviewer = User.find_by(params[:interview][:user_id])
     if @application.status.name == "ACCEPTED"
-      ScheduleInterviewMailer.release_offer_letter(@interviewer, @application).deliver_now
-      flash[:success] = "Offer extended"
+      ScheduleInterviewMailer.release_offer(@application).deliver_now
+      flash[:notice] = "Offer released to the candidate"
       redirect_to @application
     else
-      flash[:error] = "Cannot extend an offer when application status is #{@application.status.name}"
-
+      flash[:notice] = "Cannot extend an offer when application status is #{@application.status.name}"
+      redirect_to @application
     end
   end
 

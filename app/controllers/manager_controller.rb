@@ -1,4 +1,6 @@
 class ManagerController < ApplicationController
   def index
-  end
+    @user_name = current_user.name
+    return @user_name
+ end
 end

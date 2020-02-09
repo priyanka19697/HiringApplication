@@ -18,7 +18,7 @@ class ScheduleInterviewMailer < ApplicationMailer
     mail to: interviewer.email, subject: "Application Status has been updated to #{@application.status}"
   end
 
-  def release_offer_letter(application)
+  def release_offer(application)
     @application = application
     # mail to: interviewer.email, subject: "Offer has been extended to #{@application.emaill}"
     mail to: application.email, subject: "Pleased to extend the offer letter"

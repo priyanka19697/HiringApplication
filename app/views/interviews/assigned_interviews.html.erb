@@ -1,12 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Interviews</h1>
+<h1>Assigned Interviews</h1>
 
 <table>
   <thead>
     <tr>
+      <th>Application id</th>
       <th>Application</th>
-      <th>User</th>
+      <th>Interviewer</th>
       <th>Scheduled date</th>
       <th>Status</th>
       <th>Interview feedback</th>
@@ -15,21 +16,19 @@
   </thead>
 
   <tbody>
-    <% @interviews.each do |interview| %>
+    <% @assigned_interviews.each do |interview| %>
       <tr>
-        <td><%= interview.application.name %></td>
+        <td><%= interview.application_id %></td>
+        <td><%= interview.application.name%></td>
         <td><%= interview.user.name %></td>
         <td><%= interview.scheduled_date %></td>
         <td><%= interview.status.name %></td>
         <td><%= interview.interview_feedback %></td>
-        <td><%= link_to 'Show', interview %></td>
-        <td><%= link_to 'Edit', edit_interview_path(interview) %></td>
-        <td><%= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Accept', edit_interview_path(interview.id) %></td>
+        <td><%= link_to 'Decline', interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
 
-<%= link_to 'New Interview', new_interview_path %>

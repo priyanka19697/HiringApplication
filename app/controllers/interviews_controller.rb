@@ -10,6 +10,8 @@ class InterviewsController < ApplicationController
   # GET /interviews/1
   # GET /interviews/1.json
   def show
+    @user_role = current_user.role.name
+    return @user_role
   end
 
   # GET /interviews/new
@@ -26,8 +28,8 @@ class InterviewsController < ApplicationController
   # POST /interviews.json
   def create
         @application = Application.find(params[:interview][:application_id])
-        @interviewer = User.find_by(params[:interview][:user_id])
-        @interview = current_user.interviews.build(interview_params)
+        @interviewer = User.find(params[:interview][:user_id])
+        @interview = @interviewer.interviews.build(interview_params)
         @interview.application_id = @application.id
         if @interview.save
           ScheduleInterviewMailer.schedule_interview(@interviewer, @application, @interview).deliver_now
@@ -36,24 +38,20 @@ class InterviewsController < ApplicationController
         else
             render 'applications/show'
         end
-    # @interview = Interview.new(interview_params)
-    # respond_to do |format|
-    #   if @interview.save
-    #     ScheduleInterviewMailer.schedule_interview(@interviewer, @application, @interview)
-    #     format.html { redirect_to @interview, notice: 'Interview was successfully created and email has been sent.' }
-    #     format.json { render :show, status: :created, location: @interview }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @interview.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /interviews/1
   # PATCH/PUT /interviews/1.json
   def update
     respond_to do |format|
-      if @interview.update(interview_params)
+      ip = interview_params
+      ip[:application_id] = @interview.application_id
+      if @interview.update(ip)
+        if ip[:status_id] == "3"
+          @application = Application.find(ip[:application_id])
+          @application.update_attributes(status_id:2)
+          @application.save!
+        end
         format.html { redirect_to @interview, notice: 'Interview was successfully updated.' }
         format.json { render :show, status: :ok, location: @interview }
       else
@@ -73,19 +71,17 @@ class InterviewsController < ApplicationController
     end
   end
 
-  # def release_offer_mail
-  #   byebug
-  #   @application = Application.find(params[:interview][:application_id])
-  #   @interviewer = User.find_by(params[:interview][:user_id])
-  #   if @interview.status.name == "ACCEPTED"
-  #     ScheduleInterviewMailer.release_offer_letter(@interviewer, @application).deliver_now
-  #     flash[:success] = "Offer extended"
-  #     redirect_to @application
-  #   else
-  #     flash[:error] = "Cannot extend an offer when application status is #{@application.status.name}"
+  def scheduled_interviews
+    @interviewer = User.find(session[:user_id])
+    @scheduled_interviews = Interview.where("user_id = #{@interviewer.id} and status_id=3").order(:scheduled_date)
+    # redirect_to scheduled_interviews_path
+  end
 
-  #   end
-  # end
+  def assigned_interviews
+    @interviewer = User.find(session[:user_id])
+    @assigned_interviews = Interview.where("user_id = #{@interviewer.id} and status_id=1").order(:scheduled_date)
+    # redirect_to assigned_interviews_path
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
