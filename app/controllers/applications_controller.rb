@@ -27,7 +27,9 @@ class ApplicationsController < ApplicationController
   # POST /applications
   # POST /applications.json
   def create
-    @application = Application.new(application_params)
+    ap = application_params
+    ap[:user_id] = current_user.id
+    @application = Application.new(ap)
 
     respond_to do |format|
       if @application.save
@@ -44,7 +46,10 @@ class ApplicationsController < ApplicationController
   # PATCH/PUT /applications/1.json
   def update
     respond_to do |format|
-      if @application.update(application_params)
+
+      ap = application_params
+      ap[:user_id] = current_user.id
+      if @application.update(ap)
         format.html { redirect_to @application, notice: 'Application was successfully updated.' }
         format.json { render :show, status: :ok, location: @application }
       else
@@ -65,6 +70,19 @@ class ApplicationsController < ApplicationController
   end
 
   def release_offer
+    @application = Application.find(params[:id])
+    # @interviewer = User.find_by(params[:interview][:user_id])
+    if @application.status.name == "ACCEPTED"
+      ScheduleInterviewMailer.release_offer(@application).deliver_now
+      flash[:notice] = "Offer released to the candidate"
+      redirect_to @application
+    else
+      flash[:notice] = "Cannot extend an offer when application status is #{@application.status.name}"
+      redirect_to @application
+    end
+  end
+
+  def send_feedback_mail
     @application = Application.find(params[:id])
     # @interviewer = User.find_by(params[:interview][:user_id])
     if @application.status.name == "ACCEPTED"

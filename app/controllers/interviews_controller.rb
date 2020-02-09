@@ -43,6 +43,10 @@ class InterviewsController < ApplicationController
   # PATCH/PUT /interviews/1
   # PATCH/PUT /interviews/1.json
   def update
+    @interview = Interview.find(params[:id])
+    old_feeedback = @interview.interview_feedback
+    old_status = @interview.status
+    message = " "
     respond_to do |format|
       ip = interview_params
       ip[:application_id] = @interview.application_id
@@ -51,8 +55,11 @@ class InterviewsController < ApplicationController
           @application = Application.find(ip[:application_id])
           @application.update_attributes(status_id:2)
           @application.save!
+          message = send_status_change_email(old_status, old_feeedback) || " "
+          message = send_interview_accepted_email(@application) || " "
+
         end
-        format.html { redirect_to @interview, notice: 'Interview was successfully updated.' }
+        format.html { redirect_to @interview, notice: 'Interview was successfully updated. '+ message }
         format.json { render :show, status: :ok, location: @interview }
       else
         format.html { render :edit }
@@ -92,5 +99,17 @@ class InterviewsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def interview_params
       params.require(:interview).permit(:application_id, :user_id, :scheduled_date, :status_id, :interview_feedback)
+    end
+
+    def send_status_change_email(old_status, old_feedback)
+      if @interview.status!= old_status || @interview.interview_feedback != old_feedback
+        message = "Email was sent about status change"
+        # NotificationMailer.status_change_email(@interview).deliver_now
+      end
+    end
+
+    def send_interview_accepted_email(application)
+      # ScheduleInterviewMailer.release_offer(@application).deliver_now
+      message = flash[:notice] = ". Candidate has been intimated"
     end
 end
