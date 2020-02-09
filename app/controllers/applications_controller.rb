@@ -46,10 +46,12 @@ class ApplicationsController < ApplicationController
   # PATCH/PUT /applications/1.json
   def update
     respond_to do |format|
-
       ap = application_params
       ap[:user_id] = current_user.id
       if @application.update(ap)
+        if @application.status == "ACCEPTED" || @application.status == "REJECTED"
+          send_feedback_mail
+        end
         format.html { redirect_to @application, notice: 'Application was successfully updated.' }
         format.json { render :show, status: :ok, location: @application }
       else
@@ -69,12 +71,32 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def show_feedback_page
+    byebug
+    @application = Application.find(params[:id])
+  end
+
+  def give_feedback_page
+    byebug
+    @application = Application.find(params[:id])
+    respond_to do |format|
+      if @application.update(feedback_params)
+        format.html { redirect_to thankyou_path, notice: 'Feedback was successfully given' }
+        format.json { render :show, status: :created, location: @application }
+      else
+        format.html { render :new }
+        format.json { render json: @application.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def release_offer
     @application = Application.find(params[:id])
     # @interviewer = User.find_by(params[:interview][:user_id])
     if @application.status.name == "ACCEPTED"
       ScheduleInterviewMailer.release_offer(@application).deliver_now
       flash[:notice] = "Offer released to the candidate"
+      send_feedback_mail
       redirect_to @application
     else
       flash[:notice] = "Cannot extend an offer when application status is #{@application.status.name}"
@@ -84,15 +106,9 @@ class ApplicationsController < ApplicationController
 
   def send_feedback_mail
     @application = Application.find(params[:id])
-    # @interviewer = User.find_by(params[:interview][:user_id])
-    if @application.status.name == "ACCEPTED"
-      ScheduleInterviewMailer.release_offer(@application).deliver_now
-      flash[:notice] = "Offer released to the candidate"
-      redirect_to @application
-    else
-      flash[:notice] = "Cannot extend an offer when application status is #{@application.status.name}"
-      redirect_to @application
-    end
+    ScheduleInterviewMailer.feedback_mail(@application).deliver_now
+    flash[:notice] = "feedback mail to the candidate"
+    redirect_to @application
   end
 
   private
@@ -104,5 +120,9 @@ class ApplicationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_params
       params.require(:application).permit(:name, :email, :mobile, :experience, :resume, :status_id, :job_id, :joining_date, :rejection_reason)
+    end
+
+    def feedback_params
+      params.require(:application).permit(:interviewee_feedback)
     end
 end

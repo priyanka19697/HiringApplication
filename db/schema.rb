@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_09_081947) do
+ActiveRecord::Schema.define(version: 2020_02_09_145410) do
 
   create_table "applications", force: :cascade do |t|
     t.string "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2020_02_09_081947) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
+    t.text "interviewee_feedback"
     t.index ["job_id"], name: "index_applications_on_job_id"
     t.index ["status_id"], name: "index_applications_on_status_id"
     t.index ["user_id"], name: "index_applications_on_user_id"
@@ -32,7 +33,7 @@ ActiveRecord::Schema.define(version: 2020_02_09_081947) do
 
   create_table "interviews", force: :cascade do |t|
     t.integer "application_id", null: false
-    t.integer "user_id", null: true
+    t.integer "user_id", null: false
     t.datetime "scheduled_date"
     t.integer "status_id", null: false
     t.text "interview_feedback"

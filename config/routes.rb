@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   get '/users/:id/scheduled_interviews', to: 'interviews#scheduled_interviews', as: "scheduled_interviews"
   get '/users/:id/assigned_interviews', to: 'interviews#assigned_interviews', as: "assigned_interviews"
-  patch 'users/:user_id/assigned_interviews/:id/accept', to: 'interviews#accept_interview', as: "accept_interview"
-  patch 'users/:user_id/assigned_interviews/:id/decline', to: 'interviews#decline_interview', as: "decline_interview"
+  get '/feedback/:id', to: 'applications#show_feedback_page', as: "show_feedback"
+  patch '/feedback/:id', to: 'applications#give_feedback_page', as: "give_feedback"
+  get '/thankyou', to: 'applications#thankyou', as: "thankyou"
 
 end
