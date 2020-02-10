@@ -1,3 +1,4 @@
+
 <%= form_with(model: application, local: true) do |form| %>
   <% if application.errors.any? %>
     <div id="error_explanation">
@@ -11,55 +12,75 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="form-group">
+    <%= form.label :name, class: "col-md-4 control-label"  %>
+    <div class="col-md-8">
+    <%= form.text_field :name, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :mobile %>
-    <%= form.text_field :mobile %>
-  </div>
-
-  <div class="field">
-    <%= form.label :experience %>
-    <%= form.number_field :experience %>
-  </div>
-
-  <div class="field">
-    <%= form.label :resume %>
-    <%= form.text_field :resume %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.collection_select :status_id, Status.all, :id, :name %>
-
-  </div>
-
-
-  <div class="field">
-    <%= form.label :applying_for %>
-    <%= form.collection_select :job_id, Job.all, :id, :name %>
+  <div class="form-group">
+    <%= form.label :email, class: "col-md-4 control-label"  %>
+    <div class="col-md-8">
+      <%= form.text_field :email, class: "form-control"  %>
+    </div>
 
   </div>
 
   <div class="field">
-    <%= form.label :joining_date %>
-    <%= form.datetime_select :joining_date %>
+    <%= form.label :mobile, class: "col-md-4 control-label"  %>
+    <div class="col-md-8">
+      <%= form.text_field :mobile, class: "form-control"  %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :rejection_reason %>
-    <%= form.text_area :rejection_reason %>
+  <div class="form-group">
+    <%= form.label :experience , class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= form.number_field :experience, class: "form-control"  %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :resume, class: "col-md-4 control-label"  %>
+    <div class="col-md-8">
+      <%= form.text_field :resume, class: "form-control"  %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :status, class: "col-md-4 control-label"  %>
+    <div class="col-md-8">
+      <%= form.collection_select :status_id, Status.all, :id, :name, class: "form-control"  %>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <%= form.label :applying_for, class: "col-md-4 control-label"  %>
+    <div class="col-md-8">
+      <%= form.collection_select :job_id, Job.all, :id, :name, class: "form-control"  %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :joining_date, class: "col-md-4 control-label"  %>
+    <div class="col-md-8">
+      <%= form.datetime_select :joining_date , class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :rejection_reason , class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= form.text_area :rejection_reason , class: "form-control" %>
+    </div>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <button class="btn btn-submit">
+      <%= form.submit %>
+    </button>
   </div>
+
 <% end %>
