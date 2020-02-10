@@ -1,5 +1,8 @@
-<h1>ScheduleInterview#release_offer</h1>
+<h1>congratulations</h1>
 
 <p>
-  <%= @greeting %>, find me in app/views/schedule_interview_mailer/release_offer.html.erb
+  <%= @application.name %>, pleased to inform you have been selected.
+  Accept or Decline the offer below
 </p>
+<button><a href="http://localhost:4000/accept/#{@application.id}">Accept Offer</a></button>
+<button><a href="http://localhost:4000/reject/#{@application.id}">Reject Offer</a></button>

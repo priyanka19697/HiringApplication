@@ -23,5 +23,10 @@ Rails.application.routes.draw do
   get '/feedback/:id', to: 'applications#show_feedback_page', as: "show_feedback"
   patch '/feedback/:id', to: 'applications#give_feedback_page', as: "give_feedback"
   get '/thankyou', to: 'applications#thankyou', as: "thankyou"
+  get '/reject/:id', to: 'applications#reject_offer', as:"reject_offer"
+  get '/accept/:id', to: 'applications#accept_offer', as:"accept_offer"
+  patch '/response/:id', to: 'applications#response', as: "give_response"
+
+
 
 end
