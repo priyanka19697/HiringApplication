@@ -1,52 +1,98 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @application.name %>
-</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @application.email %>
-</p>
-
-<p>
-  <strong>Mobile:</strong>
-  <%= @application.mobile %>
-</p>
-
-<p>
-  <strong>Experience:</strong>
-  <%= @application.experience %>
-</p>
-
-<p>
-  <strong>Resume:</strong>
-  <%= @application.resume %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @application.status.name %>
-</p>
-
-<p>
-  <strong>Job:</strong>
-  <%= @application.job.name%>
-</p>
-
-<p>
-  <strong>Joining date:</strong>
-  <%= @application.joining_date %>
-</p>
-
-<p>
-  <strong>Rejection reason:</strong>
-  <%= @application.rejection_reason %>
-</p>
-
-<%= link_to 'Edit', edit_application_path(@application) %> |
-<%= link_to 'Back', applications_path %> |
-<%= link_to 'Setup Interview', new_application_interview_path(:application_id => @application.id)%> |
+<div class = "container">
+  <div class="row">
+    <div class="col-3">
+      <aside>
+        <div class="row p-2">
+  <button class="col-12 btn btn-warning">
+  <%= link_to 'Edit', edit_application_path(@application) %>
+  </button>
+  </div>
+  <div class="row p-2">
+  <button class="col-12 btn btn-warning">
+<%= link_to 'Back', applications_path %>
+</button>
+  </div>
+  <div class="row p-2">
+  <button class=" col-12 btn btn-warning">
+<%= link_to 'Setup Interview', new_application_interview_path(:application_id => @application.id)%>
+</button>
+  </div>
+  <div class="row p-2">
+  <button class=" col-12 btn btn-warning">
 <%= link_to 'Release Offer' , release_offer_letter_path %>
+</button>
+  </div>
+      </aside>
+    </div>
+    <div class="col-9">
+    <section>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Field</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Name</th>
+      <td> <%=@application.name %></td>
+    </tr>
+    <tr>
+      <th scope="row">Email</th>
+      <td><%= @application.email %></td>
+    </tr>
+    <tr>
+      <th scope="row">Mobile</th>
+      <td><%= @application.mobile %></td>
+
+    </tr>
+    <tr>
+      <th scope="row">Experience</th>
+      <td><%= @application.experience %></td>
+
+    </tr>
+    <tr>
+      <th scope="row">Resume</th>
+      <td><%= @application.resume %></td>
+
+    </tr>
+
+     <tr>
+      <th scope="row">Status</th>
+      <td><%= @application.status.name %></td>
+
+    </tr>
+     <tr>
+      <th scope="row">Job</th>
+      <td><%= @application.job.name %></td>
+
+    </tr>
+     <tr>
+      <th scope="row">Joining Date</th>
+      <td><%= @application.joining_date %></td>
+
+    </tr>
+
+     <tr>
+      <th scope="row"> Rejection Reason</th>
+      <td><%= @application.rejection_reason %></td>
+
+    </tr>
+  </tbody>
+</table>
+</section>
+    </div>
+  </div>
+</div>
+
+
+</div>
+<%# <div class='row'> %>
+
+<%# </div> %>
+
+
 

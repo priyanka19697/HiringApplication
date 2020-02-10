@@ -6,6 +6,7 @@ class DashboardController < ApplicationController
     else
       redirect_to interviewer_path
     end
+    session[:role] = current_user.role.name
   end
 
   def show

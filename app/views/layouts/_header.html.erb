@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light"  >
   <a class="navbar-brand" href="#">
   BeautifulCode
   </a>
@@ -9,7 +9,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <%# <% byebug %>
+        <% if session[:role] == "HIRING MANAGER"%>
+          <a class="nav-link" href="/manager">Home <span class="sr-only">(current)</span></a>
+        <% else %>
+          <a class="nav-link" href="/interviewer">Home <span class="sr-only">(current)</span></a>
+        <% end%>
+
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -26,7 +32,7 @@
 
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <a href="logout" class="btn btn-warning" role="button">Logout</a>
+      <button class="btn btn-warning"><%= link_to "Log out", logout_path %></button>
     </form>
   </div>
 </nav>
