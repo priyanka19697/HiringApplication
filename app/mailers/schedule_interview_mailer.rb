@@ -24,7 +24,7 @@ class ScheduleInterviewMailer < ApplicationMailer
     mail to: application.email, subject: "Pleased to extend the offer letter"
   end
 
-  def feedback_mail(@application)
+  def feedback_mail(application)
     @application = application
     # mail to: interviewer.email, subject: "Offer has been extended to #{@application.emaill}"
     mail to: application.email, subject: "To give feedback, click on this link localhost:3000/feedback/#{@application.id}"

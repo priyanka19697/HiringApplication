@@ -56,7 +56,7 @@
     </tr>
     <tr>
       <th scope="row">Resume</th>
-      <td><%= @application.resume %></td>
+      <td><%= link_to 'Download', url_for(@application.resume) , :target => "_blank" %></td>
 
     </tr>
 
