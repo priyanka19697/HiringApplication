@@ -1,31 +1,59 @@
-<p id="notice"><%= notice %></p>
+<div class="container"></div>
+<div class="row">
+	<div class="col-3">
+		<aside>
+			<div class="row p-2">
+				<button class="col-12 btn btn-warning">
+         <%= link_to 'Edit', edit_interview_path(@interview) %>
+		    </button>
+			</div>
+			<div class="row p-2">
+				<button class="col-12 btn btn-warning">
+					<%= link_to 'Back', interviews_path if @user_role == "HIRING MANAGER" %>
+			    <%= link_to 'Back', scheduled_interviews_path if @user_role == "INTERVIEWER" %>
+				</button>
+			</div>
+		</aside>
+	</div>
+	<div class="col-9">
+		<section>
+      <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Field</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Application</th>
+      <td> <%=@interview.application.name %></td>
+    </tr>
+    <tr>
+      <th scope="row">Interviewer</th>
+      <td><%= @interview.user.name %></td>
+    </tr>
+    <tr>
+      <th scope="row">Scheduled Date</th>
+      <td><%= @interview.scheduled_date%></td>
 
-<p>
-  <strong>Application:</strong>
-  <%= @interview.application.name %>
-</p>
+    </tr>
+    <tr>
+      <th scope="row">Status</th>
+      <td><%= @interview.status.name%></td>
 
-<p>
-  <strong>User:</strong>
-  <%= @interview.user.name %>
-</p>
+    </tr>
+    <tr>
+      <th scope="row">Interview feedback</th>
+      <td><%= @interview.interview_feedback%></td>
 
-<p>
-  <strong>Scheduled date:</strong>
-  <%= @interview.scheduled_date %>
-</p>
+    </tr>
+  </tbody>
+</table>
+</section>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @interview.status.name %>
-</p>
 
-<p>
-  <strong>Interview feedback:</strong>
-  <%= @interview.interview_feedback %>
-</p>
-
-<%= link_to 'Edit', edit_interview_path(@interview) %> |
-<%= link_to 'Back', interviews_path if @user_role == "HIRING MANAGER" %>
-<%= link_to 'Back', scheduled_interviews_path if @user_role == "INTERVIEWER" %>
-
+</div>

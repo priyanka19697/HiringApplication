@@ -1,0 +1,5 @@
+{
+  "vscode-erb-beautify.stopOnErrors": true,
+  "vscode-erb-beautify.tab": true,
+  "vscode-erb-beautify.keepBlankLines": 1
+}

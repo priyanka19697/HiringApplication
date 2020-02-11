@@ -1,6 +1,12 @@
-<h1>Editing Application</h1>
-
-<%= render 'form', application: @application %>
-
-<%= link_to 'Show', @application %> |
-<%= link_to 'Back', applications_path %>
+<div class="container center_div ">
+	<div class="row bg-light">
+		<div class="col-3">
+		</div>
+		<div class="col-9 pt-3">
+			<h2>Editing Application</h2>
+			<%= render 'form', application: @application %>
+			<%= link_to 'Show', @application %> |
+			<%= link_to 'Back', applications_path %>
+		</div>
+	</div>
+</div>

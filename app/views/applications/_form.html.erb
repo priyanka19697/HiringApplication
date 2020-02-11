@@ -1,83 +1,80 @@
-
 <%= form_with(model: application, local: true) do |form| %>
-  <% if application.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(application.errors.count, "error") %> prohibited this application from being saved:</h2>
+	<% if application.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(application.errors.count, "error") %> prohibited this application from being saved:</h2>
 
-      <ul>
-        <% application.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+			<ul>
+				<% application.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
 
-  <div class="form-group">
-    <%= form.label :name, class: "col-md-4 control-label"  %>
-    <div class="col-md-8">
-    <%= form.text_field :name, class: "form-control" %>
-    </div>
-  </div>
+	<div class="form-group">
+		<%= form.label :name, class: "col-md-4 control-label"  %>
+		<div class="col-md-8">
+			<%= form.text_field :name, class: "form-control" %>
+		</div>
+	</div>
 
-  <div class="form-group">
-    <%= form.label :email, class: "col-md-4 control-label"  %>
-    <div class="col-md-8">
-      <%= form.text_field :email, class: "form-control"  %>
-    </div>
+	<div class="form-group">
+		<%= form.label :email, class: "col-md-4 control-label"  %>
+		<div class="col-md-8">
+			<%= form.text_field :email, class: "form-control"  %>
+		</div>
 
-  </div>
+	</div>
 
-  <div class="field">
-    <%= form.label :mobile, class: "col-md-4 control-label"  %>
-    <div class="col-md-8">
-      <%= form.text_field :mobile, class: "form-control"  %>
-    </div>
-  </div>
+	<div class="field">
+		<%= form.label :mobile, class: "col-md-4 control-label"  %>
+		<div class="col-md-8">
+			<%= form.text_field :mobile, class: "form-control"  %>
+		</div>
+	</div>
 
-  <div class="form-group">
-    <%= form.label :experience , class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= form.number_field :experience, class: "form-control"  %>
-    </div>
-  </div>
+	<div class="form-group">
+		<%= form.label :experience , class: "col-md-4 control-label" %>
+		<div class="col-md-8">
+			<%= form.number_field :experience, class: "form-control"  %>
+		</div>
+	</div>
 
-  <div class="form-group">
-    <%= form.label :resume, class: "col-md-4 control-label"  %>
-    <div class="col-md-8">
-      <%= form.text_field :resume, class: "form-control"  %>
-    </div>
-  </div>
+	<div class="form-group">
+		<%= form.label :resume, class: "col-md-4 control-label"  %>
+		<div class="col-md-8">
+			<%= form.text_field :resume, class: "form-control"  %>
+		</div>
+	</div>
 
-  <div class="form-group">
-    <%= form.label :status, class: "col-md-4 control-label"  %>
-    <div class="col-md-8">
-      <%= form.collection_select :status_id, Status.all, :id, :name, class: "form-control"  %>
-    </div>
-  </div>
+	<div class="form-group">
+		<%= form.label :status, class: "col-md-4 control-label"  %>
+		<div class="col-md-8">
+			<%= form.collection_select :status_id, Status.all, :id, :name, class: "form-control"  %>
+		</div>
+	</div>
 
+	<div class="form-group">
+		<%= form.label :applying_for, class: "col-md-4 control-label"  %>
+		<div class="col-md-8">
+			<%= form.collection_select :job_id, Job.all, :id, :name, class: "form-control"  %>
+		</div>
+	</div>
 
-  <div class="form-group">
-    <%= form.label :applying_for, class: "col-md-4 control-label"  %>
-    <div class="col-md-8">
-      <%= form.collection_select :job_id, Job.all, :id, :name, class: "form-control"  %>
-    </div>
-  </div>
+	<div class="form-group">
+		<%= form.label :joining_date, class: "col-md-4 control-label"  %>
+		<div class="col-md-8">
+			<%= form.datetime_select :joining_date , class: "form-control" %>
+		</div>
+	</div>
 
-  <div class="form-group">
-    <%= form.label :joining_date, class: "col-md-4 control-label"  %>
-    <div class="col-md-8">
-      <%= form.datetime_select :joining_date , class: "form-control" %>
-    </div>
-  </div>
+	<div class="form-group">
+		<%= form.label :rejection_reason , class: "col-md-4 control-label" %>
+		<div class="col-md-8">
+			<%= form.text_area :rejection_reason , class: "form-control" %>
+		</div>
+	</div>
 
-  <div class="form-group">
-    <%= form.label :rejection_reason , class: "col-md-4 control-label" %>
-    <div class="col-md-8">
-      <%= form.text_area :rejection_reason , class: "form-control" %>
-    </div>
-  </div>
-
-  <button class="btn btn-info" type="submit">Submit</button>
-
+	<button class="btn btn-info" type="submit">Submit</button>
 
 <% end %>

@@ -1,41 +1,43 @@
 <%= form_with(model: interview, local: true) do |form| %>
-  <% if interview.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(interview.errors.count, "error") %> prohibited this interview from being saved:</h2>
+	<% if interview.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(interview.errors.count, "error") %> prohibited this interview from being saved:</h2>
 
-      <ul>
-        <% interview.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="field form-control">
-     <%= form.hidden_field :application_id, :value => params[:application_id] %>
-  </div>
+			<ul>
+				<% interview.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+	<div class="field form-group">
+		<%= form.hidden_field :application_id, :value => params[:application_id] %>
+	</div>
 
-  <div class="field form-control">
-    <%= form.label :Interviewer%>
-    <%= form.collection_select :user_id,User.where(role_id:2), :id, :name %>
+	<div class="field form-group">
+		<%= form.label :Interviewer, class: "col-md-4 control-label" %>
+		<div class="col-md-8">
+			<%= form.collection_select :user_id,User.where(role_id:2), :id, :name ,class: "form-control" %>
+		</div>
+	</div>
+	<div class="field form-group">
+		<%= form.label :scheduled_date, class: "col-md-4 control-label" %>
+		<div class="col-md-8">
+			<%= form.datetime_select :scheduled_date ,class: "form-control" %>
+		</div>
+	</div>
 
-  </div>
-
-  <div class="field form-control">
-    <%= form.label :scheduled_date %>
-    <%= form.datetime_select :scheduled_date %>
-  </div>
-
-  <div class="field form-control">
-    <%= form.label :status %>
-    <%= form.collection_select :status_id, Status.all, :id, :name %>
-  </div>
-
-  <div class="field form-control">
-    <%= form.label :interview_feedback %>
-    <%= form.text_area :interview_feedback %>
-  </div>
-
-  <div class="actions btn btn-primary">
-    <%= form.submit %>
-  </div>
+	<div class="field form-group">
+		<%= form.label :status , class: "col-md-4 control-label" %>
+		<div class="col-md-8">
+			<%= form.collection_select :status_id, Status.all, :id, :name, class: "form-control" %>
+		</div>
+	</div>
+	<div class="field form-group">
+		<%= form.label :interview_feedback , class: "col-md-4 control-label" %>
+		<div class="col-md-8">
+			<%= form.text_area :interview_feedback, class: "form-control" %>
+		</div>
+	</div>
+	<button class="btn btn-info" type="submit">Update</button>
 <% end %>

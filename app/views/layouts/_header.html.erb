@@ -1,38 +1,38 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light"  >
-  <a class="navbar-brand" href="#">
-  BeautifulCode
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+	<a class="navbar-brand" href="#">
+		BeautifulCode
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-      <%# <% byebug %>
-        <% if session[:role] == "HIRING MANAGER"%>
-          <a class="nav-link" href="/manager">Home <span class="sr-only">(current)</span></a>
-        <% else %>
-          <a class="nav-link" href="/interviewer">Home <span class="sr-only">(current)</span></a>
-        <% end%>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<% if session[:role] == "HIRING MANAGER"%>
+				<li class="nav-item active">
+					<a class="nav-link" href="/manager">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Applications
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="/applications/new">Create</a>
+						<a class="dropdown-item" href="/applications">Open </a>
+						<a class="dropdown-item" href="#">InProgress</a>
+						<a class="dropdown-item" href="#">Approved</a>
+						<a class="dropdown-item" href="#">Rejected</a>
+					</div>
+				</li>
+			<% else %>
+				<li class="nav-item active">
+					<a class="nav-link" href="/interviewer">Home <span class="sr-only">(current)</span></a>
+				</li>
+			<% end%>
 
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Applications
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/applications/new">Create</a>
-          <a class="dropdown-item" href="/applications">Open </a>
-          <a class="dropdown-item" href="#">InProgress</a>
-          <a class="dropdown-item" href="#">Approved</a>
-          <a class="dropdown-item" href="#">Rejected</a>
-        </div>
-      </li>
-
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-warning"><%= link_to "Log out", logout_path %></button>
-    </form>
-  </div>
+		</ul>
+		<form class="form-inline my-2 my-lg-0">
+			<button class="btn btn-warning"><%= link_to "Log out", logout_path %></button>
+		</form>
+	</div>
 </nav>

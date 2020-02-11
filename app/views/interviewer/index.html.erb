@@ -1,19 +1,20 @@
-<div class="jumbotron jumbotron-fluid">
-  <div class="container "style="padding: 10%">
-    <h1 class="display-4" style="text-align:center">Hello <%=@user_name%>!</h1>
-    <p class="lead alert alert-primary" style="text-align:center">View Scheduled Interviews and Assigned interviews</p>
-    <hr class="my-4">
+<div class="jumbotron text-center">
+	<div class="container "style="padding: 10%">
+		<h1 class="display-4" style="text-align:center">Hello <%=@user_name%>!</h1>
+		<p class="lead alert alert-info" style="text-align:center">View Scheduled Interviews and Assigned interviews</p>
+		<hr class="my-4">
 		<div class="container" style="height" >
-		<div class="row">
-		  <p class="lead" style="float:left">
-        <a class="btn btn-warning btn-lg" href="/users/:user_id/scheduled_interviews" role="button">View Scheduled Interviews</a>
-      </p>
-	    <p class="lead" style="float:right">
-        <a class="btn btn-warning btn-lg" href="/users/:user_id/assigned_interviews" role="button">Accept/Decline Interviews</a>
-      </p>
+			<div class="row">
+				<p class="col-4 lead" style="float:left">
+					<%= link_to 'View Scheduled Interviews',scheduled_interviews_path(current_user),{:class => "btn btn-warning btn-lg" } %>
+				</p>
+				<div class="col-4">
+				</div>
+				<p class="col-4 lead" style="float:right">
+					<%= link_to 'View Assigned Interviews',assigned_interviews_path(current_user),{:class => "btn btn-warning btn-lg" } %>
+				</p>
+			</div>
 		</div>
+
 	</div>
-
-  </div>
 </div>
-

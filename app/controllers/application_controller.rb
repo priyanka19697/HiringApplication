@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
-    # session[:user_name] = @current_user.name
+    session[:user] = @current_user
   end
 
   def user_signed_in?

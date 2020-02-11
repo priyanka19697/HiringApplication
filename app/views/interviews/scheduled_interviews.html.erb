@@ -1,36 +1,41 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+	<div class="row bg-light">
+		<div class="col-1">
+		</div>
+		<div class="col-9 ">
+			<h1> Scheduled Interviews</h1>
 
-<h1> Scheduled Interviews</h1>
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th scope="col">Application Id</th>
+						<th scope="col">Application</th>
+						<th scope="col">Interviewer</th>
+						<th scope="col">Scheduled date</th>
+						<th scope="col">Status</th>
+						<th scope="col">Interview feedback</th>
+						<th scope="col" colspan="3">Options</th>
+					</tr>
+				</thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Application Id</th>
-      <th>Application</th>
-      <th>Interviewer</th>
-      <th>Scheduled date</th>
-      <th>Status</th>
-      <th>Interview feedback</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+				<tbody>
+					<% @scheduled_interviews.each do |interview| %>
+						<tr>
+							<th scope="row"><%= interview.application_id %></th>
+							<td><%= interview.application.name %></td>
+							<td><%= interview.user.name %></td>
+							<td><%= interview.scheduled_date %></td>
+							<td><%= interview.status.name %></td>
+							<td><%= interview.interview_feedback %></td>
+							<td><%= link_to 'Show', interview %></td>
+							<td><%= link_to 'Edit', edit_interview_path(interview) %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
 
-  <tbody>
-    <% @scheduled_interviews.each do |interview| %>
-      <tr>
-        <td><%= interview.application_id %></td>
-        <td><%= interview.application.name %></td>
-        <td><%= interview.user.name %></td>
-        <td><%= interview.scheduled_date %></td>
-        <td><%= interview.status.name %></td>
-        <td><%= interview.interview_feedback %></td>
-        <td><%= link_to 'Show', interview %></td>
-        <td><%= link_to 'Edit', edit_interview_path(interview) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Interview', new_interview_path %>
+			<br>
+		</div>
+		<div class="col-2">
+		</div>

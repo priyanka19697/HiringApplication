@@ -85,7 +85,7 @@ class InterviewsController < ApplicationController
 
   def assigned_interviews
     @interviewer = User.find(session[:user_id])
-    @assigned_interviews = Interview.where("user_id = #{@interviewer.id} and status_id=1").order(:scheduled_date)
+    @assigned_interviews = Interview.where(user_id: @interviewer.id, status_id: 1).order(:scheduled_date)
     # redirect_to assigned_interviews_path
   end
 
