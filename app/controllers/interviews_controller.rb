@@ -108,7 +108,7 @@ class InterviewsController < ApplicationController
     end
 
     def send_status_change_email(old_status, old_feedback)
-      if @interview.status!= old_status || @interview.interview_feedback != old_feedback
+      if @interview.interview_status!= old_status || @interview.interview_feedback != old_feedback
         message = "Email was sent about status change"
         # NotificationMailer.status_change_email(@interview).deliver_now
       end

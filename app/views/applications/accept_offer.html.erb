@@ -1,22 +1,23 @@
-<%= form_for @application,  url: give_feedback_path(@application) do |form| %>
-  <% if @application.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@application.errors.count, "error") %> prohibited this application from being saved:</h2>
+<%= form_for(@application, url: update_application_final_path(params[:id])) do |form| %>
+	<% if @application.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@application.errors.count, "error") %> prohibited this application from being saved:</h2>
 
-      <ul>
-        <% @application.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <h1> ACCEPT OFFER </h1>
-  <div class="field">
-    <%= form.label :JoiningDate  %>
-    <%= form.date :JoiningDate%>
-  </div>
+			<ul>
+				<% @application.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+	<h1> ACCEPT OFFER </h1>
+	<div class="form-group">
+		<%= form.label :joining_date, class: "col-md-4 control-label"  %>
+		<div class="col-md-8">
+			<%= form.datetime_select :joining_date , class: "form-control" %>
+		</div>
+	</div>
 
-  <div class="actions">
-    <%= form.submit%>
-  </div>
+	<button class="btn btn-info ml-3" type="submit">Submit</button>
+
 <% end %>

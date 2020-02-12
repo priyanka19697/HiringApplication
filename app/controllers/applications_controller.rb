@@ -44,13 +44,31 @@ class ApplicationsController < ApplicationController
     respond_to do |format|
       ap = application_params
       ap[:user_id] = current_user.id
+      byebug
       if @application.update(ap)
-        if @application.application_status == "GO-CLOSED" || @application.application_status == "NO-GO-CLOSED"
+        if ap[:joining_date] || ap[:rejection_reason]
+          redirect_to thankyou_path
+          break
+        elsif @application.application_status == "GO-CLOSED" || @application.application_status == "NO-GO-CLOSED"
           send_feedback_mail
+          return
         end
+        format.html { redirect_to interviewer_path, notice: 'Application was successfully updated.' }
+        format.json { render :show, status: :ok, location: interviewer_path }
+      else
+        format.html { render :edit }
+        format.json { render json: @application.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
-        format.html { redirect_to @application, notice: 'Application was successfully updated.' }
-        format.json { render :show, status: :ok, location: @application }
+  def update_final
+    respond_to do |format|
+      ap = application_params
+      ap[:user_id] = current_user.id
+      if @application.update(ap)
+        format.html { redirect_to thankyou_path, notice: 'Application was successfully updated.' }
+        format.json { render :show, status: :ok, location: thankyou_path }
       else
         format.html { render :edit }
         format.json { render json: @application.errors, status: :unprocessable_entity }
@@ -104,10 +122,9 @@ class ApplicationsController < ApplicationController
   def release_offer
     @application = Application.find(params[:id])
     # @interviewer = User.find_by(params[:interview][:user_id])
-    if @application.application_status == "ACCEPTED-CLOSED"
+    if @application.application_status == "GO-CLOSED"
       ScheduleInterviewMailer.release_offer(@application).deliver_now
       flash[:notice] = "Offer released to the candidate"
-      send_feedback_mail
       redirect_to @application
     else
       flash[:notice] = "Cannot extend an offer when application status is #{@application.application_status}"
@@ -120,6 +137,14 @@ class ApplicationsController < ApplicationController
     ScheduleInterviewMailer.feedback_mail(@application).deliver_now
     flash[:notice] = "feedback mail to the candidate"
     redirect_to @application
+  end
+
+  def accept_offer
+     @application = Application.find(params[:id])
+  end
+
+  def reject_offer
+     @application = Application.find(params[:id])
   end
 
   private

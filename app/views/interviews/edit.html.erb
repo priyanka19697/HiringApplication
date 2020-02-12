@@ -5,8 +5,8 @@
 		<div class="col-9 pt-3">
 			<h2>Editing Interview</h2>
 			<%= render 'form', interview: @interview %>
-			<%= link_to 'Show', @interview %> |
-			<%= link_to 'Back', scheduled_interviews_path %>
+			<%= link_to 'Show', @interview, class: "btn btn-info ml-1" %> |
+			<%= link_to 'Back', scheduled_interviews_path , class: "btn btn-info ml-3 mt-1"%>
 		</div>
 	</div>
 </div>

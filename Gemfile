@@ -58,4 +58,5 @@ gem 'dotenv-rails', groups: [:development, :test], require: 'dotenv/rails-now'
 gem 'factory_bot'
 gem 'rspec'
 gem 'filterrific'
+gem "letter_opener", :group => :development
 

@@ -32,7 +32,10 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
+  config.action_mailer.delivery_method = :letter_opener
+config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { :host => "localhost:3000" }
 
   config.public_file_server.enabled = true
 
@@ -61,4 +64,13 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+end
+LetterOpener.configure do |config|
+  # To overrider the location for message storage.
+  # Default value is `tmp/letter_opener`
+  config.location = Rails.root.join('tmp', 'my_mails')
+
+  # To render only the message body, without any metadata or extra containers or styling.
+  # Default value is `:default` that renders styled message with showing useful metadata.
+  config.message_template = :light
 end

@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get '/reject/:id', to: 'applications#reject_offer', as:"reject_offer"
   get '/accept/:id', to: 'applications#accept_offer', as:"accept_offer"
   patch '/response/:id', to: 'applications#response', as: "give_response"
-
+  patch '/applications/:id', to: 'applications#update_final', as: "update_application_final"
 
 
 end

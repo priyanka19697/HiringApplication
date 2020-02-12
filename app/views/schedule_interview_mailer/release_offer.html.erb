@@ -1,8 +1,14 @@
 <h1>congratulations</h1>
 
 <p>
-  <%= @application.name %>, pleased to inform you have been selected.
-  Accept or Decline the offer below
+	<%= @application.name %>, pleased to inform you have been selected.
+	Accept or Decline the offer below
 </p>
-<button><a href="http://localhost:4000/accept/#{@application.id}">Accept Offer</a></button>
-<button><a href="http://localhost:4000/reject/#{@application.id}">Reject Offer</a></button>
+<%= link_to(:controller => "applications", :action => "accept_offer", :id => @application.id) do %>
+	<span>Accept</span>
+<% end %>
+<%= link_to(:controller => "applications", :action => "reject_offer", :id => @application.id) do %>
+	<span>Reject</span>
+<% end %>
+<%# <%= link_to accept_offer_path, params[:id] = @application.id%>
+<%# <%= link_to reject_offer_path, params[:id]=  @application.id%>
