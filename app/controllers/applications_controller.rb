@@ -42,11 +42,13 @@ class ApplicationsController < ApplicationController
   # PATCH/PUT /applications/1.json
   def update
     respond_to do |format|
+      old_date = @application.joining_date
       ap = application_params
       ap[:user_id] = current_user.id
-      byebug
       if @application.update(ap)
-        if ap[:joining_date] || ap[:rejection_reason]
+        new_date = @application.joining_date
+        flag = check_if_joining_date_changed(old_date, new_date)
+        if flag || ap[:rejection_reason] != ""
           redirect_to thankyou_path
           break
         elsif @application.application_status == "GO-CLOSED" || @application.application_status == "NO-GO-CLOSED"
@@ -160,5 +162,12 @@ class ApplicationsController < ApplicationController
 
     def feedback_params
       params.require(:application).permit(:interviewee_feedback)
+    end
+
+    def check_if_joining_date_changed(old_date, new_date)
+      if old_date != new_date
+        return true
+      end
+      return false
     end
 end
