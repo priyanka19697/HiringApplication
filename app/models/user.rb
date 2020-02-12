@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
 	def self.find_or_create_from_auth_hash(auth)
 		where(email: auth.info.email).first_or_initialize.tap do |user|
-			if auth.info.email == "priyanka@beautifulcode.in"
+			if auth.info.email == "priyanka@beautifulcode.in" || auth.info.email == "sushant@beautifulcode.in"
 				user.role = HiringManager
 			else
 				user.role = Interviewer
