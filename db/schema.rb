@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_120605) do
+ActiveRecord::Schema.define(version: 2020_02_11_134537) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 2020_02_11_120605) do
     t.string "mobile"
     t.integer "experience"
     t.string "resume"
-    t.integer "status_id", null: false
     t.integer "job_id", null: false
     t.datetime "joining_date"
     t.text "rejection_reason"
@@ -47,8 +46,8 @@ ActiveRecord::Schema.define(version: 2020_02_11_120605) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.text "interviewee_feedback"
+    t.string "application_status"
     t.index ["job_id"], name: "index_applications_on_job_id"
-    t.index ["status_id"], name: "index_applications_on_status_id"
     t.index ["user_id"], name: "index_applications_on_user_id"
   end
 
@@ -56,12 +55,11 @@ ActiveRecord::Schema.define(version: 2020_02_11_120605) do
     t.integer "application_id", null: false
     t.integer "user_id", null: false
     t.datetime "scheduled_date"
-    t.integer "status_id", null: false
     t.text "interview_feedback"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "interview_status"
     t.index ["application_id"], name: "index_interviews_on_application_id"
-    t.index ["status_id"], name: "index_interviews_on_status_id"
     t.index ["user_id"], name: "index_interviews_on_user_id"
   end
 
@@ -72,12 +70,6 @@ ActiveRecord::Schema.define(version: 2020_02_11_120605) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "statuses", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -94,9 +86,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_120605) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "applications", "jobs"
-  add_foreign_key "applications", "statuses"
   add_foreign_key "interviews", "applications"
-  add_foreign_key "interviews", "statuses"
   add_foreign_key "interviews", "users"
   add_foreign_key "users", "roles"
 end

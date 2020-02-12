@@ -24,6 +24,11 @@
 <%= link_to 'Release Offer' , release_offer_letter_path %>
 </button>
   </div>
+  <div class="row p-2">
+  <button class=" col-12 btn btn-warning">
+<%= link_to 'Interview History' , application_interviews_path(:application_id => @application.id)%>
+</button>
+  </div>
       </aside>
     </div>
     <div class="col-9">
@@ -62,7 +67,7 @@
 
      <tr>
       <th scope="row">Status</th>
-      <td><%= @application.status.name %></td>
+      <td><%= @application.application_status %></td>
 
     </tr>
      <tr>

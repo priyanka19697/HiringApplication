@@ -15,7 +15,7 @@ class ScheduleInterviewMailer < ApplicationMailer
   def notify_application_update(interviewer, application)
     @interviewer = interviewer
     @application = application
-    mail to: interviewer.email, subject: "Application Status has been updated to #{@application.status}"
+    mail to: interviewer.email, subject: "Application Status has been updated to #{@application.application_status}"
   end
 
   def release_offer(application)

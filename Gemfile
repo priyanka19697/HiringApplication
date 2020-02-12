@@ -57,3 +57,5 @@ gem 'omniauth-google-oauth2'
 gem 'dotenv-rails', groups: [:development, :test], require: 'dotenv/rails-now'
 gem 'factory_bot'
 gem 'rspec'
+gem 'filterrific'
+

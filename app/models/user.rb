@@ -3,6 +3,7 @@ class User < ApplicationRecord
 	has_many :interviews
 	has_many :applications
 
+
 	HiringManager = Role.find(1);
 	Interviewer = Role.find(2);
 

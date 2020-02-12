@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
   # GET /applications
   # GET /applications.json
   def index
-    @applications = Application.where(status_id:1)
+    @applications = Application.all
   end
 
   # GET /applications/1
@@ -15,13 +15,10 @@ class ApplicationsController < ApplicationController
   # GET /applications/new
   def new
     @application = Application.new
-    @status_list = Status.all
-    @job_list = Job.all
   end
 
   # GET /applications/1/edit
   def edit
-
   end
 
   # POST /applications
@@ -30,7 +27,6 @@ class ApplicationsController < ApplicationController
     ap = application_params
     ap[:user_id] = current_user.id
     @application = Application.new(ap)
-
     respond_to do |format|
       if @application.save
         format.html { redirect_to @application, notice: 'Application was successfully created.' }
@@ -49,9 +45,10 @@ class ApplicationsController < ApplicationController
       ap = application_params
       ap[:user_id] = current_user.id
       if @application.update(ap)
-        if @application.status == "ACCEPTED" || @application.status == "REJECTED"
+        if @application.application_status == "GO-CLOSED" || @application.application_status == "NO-GO-CLOSED"
           send_feedback_mail
         end
+
         format.html { redirect_to @application, notice: 'Application was successfully updated.' }
         format.json { render :show, status: :ok, location: @application }
       else
@@ -71,13 +68,27 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def open_applications
+    @applications = Application.where(application_status:"OPEN")
+  end
+
+  def inprogress_applications
+    @applications = Application.where(application_status:"IN PROGRESS")
+  end
+
+  def accepted_applications
+    @applications = Application.where(application_status:"GO-CLOSED")
+  end
+
+  def rejected_applications
+    @applications = Application.where(application_status:"NO-GO-CLOSED")
+  end
+
   def show_feedback_page
-    byebug
     @application = Application.find(params[:id])
   end
 
   def give_feedback_page
-    byebug
     @application = Application.find(params[:id])
     respond_to do |format|
       if @application.update(feedback_params)
@@ -93,13 +104,13 @@ class ApplicationsController < ApplicationController
   def release_offer
     @application = Application.find(params[:id])
     # @interviewer = User.find_by(params[:interview][:user_id])
-    if @application.status.name == "ACCEPTED"
+    if @application.application_status == "ACCEPTED-CLOSED"
       ScheduleInterviewMailer.release_offer(@application).deliver_now
       flash[:notice] = "Offer released to the candidate"
       send_feedback_mail
       redirect_to @application
     else
-      flash[:notice] = "Cannot extend an offer when application status is #{@application.status.name}"
+      flash[:notice] = "Cannot extend an offer when application status is #{@application.application_status}"
       redirect_to @application
     end
   end
@@ -119,7 +130,7 @@ class ApplicationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_params
-      params.require(:application).permit(:name, :email, :mobile, :experience, :resume, :status_id, :job_id, :joining_date, :rejection_reason)
+      params.require(:application).permit(:name, :email, :mobile, :experience, :resume, :application_status, :job_id, :joining_date, :rejection_reason)
     end
 
     def feedback_params

@@ -19,7 +19,7 @@
 				</thead>
 
 				<tbody>
-					<% @interviews.each do |interview| %>
+					<% @completed_interviews.each do |interview| %>
 						<tr>
 							<th scope="row"><%= interview.application.name %></th>
 							<td><%= interview.user.name %></td>
@@ -27,7 +27,7 @@
 							<td><%= interview.interview_status %></td>
 							<td><%= interview.interview_feedback %></td>
 							<td><%= link_to 'Show', interview %></td>
-							<td><%= link_to 'Edit', edit_interview_path(interview) %></td>
+							<td><%= link_to 'Edit Application Status', edit_application_path(interview.application_id) %></td>
 						</tr>
 					<% end %>
 				</tbody>

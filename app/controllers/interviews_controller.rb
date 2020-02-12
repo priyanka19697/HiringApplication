@@ -3,7 +3,7 @@ class InterviewsController < ApplicationController
   # GET /interviews
   # GET /interviews.json
   def index
-    @interviews = Interview.all
+    @interviews = Interview.where(application_id:params[:application_id])
   end
 
   # GET /interviews/1
@@ -30,6 +30,7 @@ class InterviewsController < ApplicationController
         @interviewer = User.find(params[:interview][:user_id])
         @interview = @interviewer.interviews.build(interview_params)
         @interview.application_id = @application.id
+        @application.update_attributes(application_status:"IN PROGRESS")
         if @interview.save
           ScheduleInterviewMailer.schedule_interview(@interviewer, @application, @interview).deliver_now
           flash[:success] = "Interview created!"
@@ -44,19 +45,20 @@ class InterviewsController < ApplicationController
   def update
     @interview = Interview.find(params[:id])
     old_feeedback = @interview.interview_feedback
-    old_status = @interview.status
+    old_status = @interview.interview_status
     message = " "
     respond_to do |format|
       ip = interview_params
       ip[:application_id] = @interview.application_id
       if @interview.update(ip)
-        if ip[:status_id] == "3"
-          @application = Application.find(ip[:application_id])
-          @application.update_attributes(status_id:2)
+        @application = Application.find(ip[:application_id])
+        if ip[:interview_status] == "ACCEPTED"
+          @application.update_attributes(application_status:"IN PROGRESS")
           @application.save!
           message = send_status_change_email(old_status, old_feeedback) || " "
           message = send_interview_accepted_email(@application) || " "
-
+        elsif ip[:interview_status] == "INTERVIEW-DONE"
+          flash[:notice] = "visit edit application link for the next procedure"
         end
         format.html { redirect_to @interview, notice: 'Interview was successfully updated. '+ message }
         format.json { render :show, status: :ok, location: @interview }
@@ -79,14 +81,19 @@ class InterviewsController < ApplicationController
 
   def scheduled_interviews
     @interviewer = User.find(session[:user_id])
-    @scheduled_interviews = Interview.where("user_id = #{@interviewer.id} and status_id=3").order(:scheduled_date)
+    @scheduled_interviews = Interview.where(user_id: @interviewer.id, interview_status:"ACCEPTED").order(:scheduled_date)
     # redirect_to scheduled_interviews_path
   end
 
   def assigned_interviews
     @interviewer = User.find(session[:user_id])
-    @assigned_interviews = Interview.where(user_id: @interviewer.id, status_id: 1).order(:scheduled_date)
+    @assigned_interviews = Interview.where(user_id: @interviewer.id, interview_status: "OPEN").order(:scheduled_date)
     # redirect_to assigned_interviews_path
+  end
+
+  def completed_interviews
+    @interviewer = User.find(session[:user_id])
+    @completed_interviews = Interview.where(user_id: @interviewer.id, interview_status:"INTERVIEW DONE").order(:scheduled_date)
   end
 
   private
@@ -97,7 +104,7 @@ class InterviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def interview_params
-      params.require(:interview).permit(:application_id, :user_id, :scheduled_date, :status_id, :interview_feedback)
+      params.require(:interview).permit(:application_id, :user_id, :scheduled_date, :interview_status, :interview_feedback)
     end
 
     def send_status_change_email(old_status, old_feedback)

@@ -13,6 +13,12 @@
 			    <%= link_to 'Back', scheduled_interviews_path if @user_role == "INTERVIEWER" %>
 				</button>
 			</div>
+
+      <div class="row p-2">
+				<button class="col-12 btn btn-warning">
+         <%= link_to 'Forward Interview', new_application_interview_path(@interview.application_id) %>
+		    </button>
+			</div>
 		</aside>
 	</div>
 	<div class="col-9">
@@ -40,7 +46,7 @@
     </tr>
     <tr>
       <th scope="row">Status</th>
-      <td><%= @interview.status.name%></td>
+      <td><%= @interview.interview_status%></td>
 
     </tr>
     <tr>

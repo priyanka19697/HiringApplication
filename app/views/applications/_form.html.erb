@@ -50,7 +50,7 @@
 	<div class="form-group">
 		<%= form.label :status, class: "col-md-4 control-label"  %>
 		<div class="col-md-8">
-			<%= form.collection_select :status_id, Status.all, :id, :name, class: "form-control"  %>
+			<%=form.select :application_status, ["OPEN", "IN PROGRESS", "GO-CLOSED", "NO-GO-CLOSED"], class: "form-control"  %>
 		</div>
 	</div>
 
