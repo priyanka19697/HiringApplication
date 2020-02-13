@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<div class="container bg-light">
+<div class="container bg-light shadow-sm rounded" style="padding: 16px">
 	<div class="row ">
 		<div class="col-12">
 			<h1>Applications</h1>
-
-			<table class="table table-responsive table-striped table-bordered" id="myTable">
+			<hr/>
+			<table class="table table-striped table-bordered" id="myTable">
 				<thead>
 					<tr>
 						<th scope="col">Name</th>
@@ -44,6 +44,6 @@
 
 			<br>
 
-			<%= link_to 'New Application', new_application_path, class: "btn btn-info ml-1"%>
+			<%= link_to 'New Application', new_application_path, class: "btn col-fg-white col-bg-primary ml-1"%>
 			<%= yield :page_js %>
 		</div>

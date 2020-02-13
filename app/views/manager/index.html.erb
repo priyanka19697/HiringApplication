@@ -1,17 +1,18 @@
-<div class="jumbotron text-center">
+<div class="container text-center">
 	<div class="container "style="padding: 10%">
-		<h1 class="display-4" style="text-align:center">Hello <%=@user_name%>!</h1>
-		<p class="lead alert alert-info" style="text-align:center">Create Applications or View All Your Applications</p>
-		<hr class="my-4">
+		<h1 class="display-4 col-text-primary " style="text-align:center">Hello <%=@user_name%>!</h1>
+		<hr/>
+		<p class="lead alert col-text-primary col-bg-secondary text-bold shadow-sm" style="text-align:center">Create Applications or View All Your Applications</p>
+		<hr class="my-4" />
 		<div class="container" style="height" >
 			<div class="row">
 				<p class="col-4 lead" style="float:left">
-					<a class="btn btn-warning btn-lg" href="/applications/new" role="button">Create Application</a>
+					<a class="btn col-fg-white col-bg-primary btn-lg" href="/applications/new" role="button">Create Application</a>
 				</p>
 				<div class="col-4">
 				</div>
 				<p class="col-4 lead" style="float:right">
-					<a class="btn btn-warning btn-lg" href="/openapplications" role="button">View Applications</a>
+					<a class="btn col-fg-white col-bg-primary btn-lg" href="/openapplications" role="button">View Applications</a>
 				</p>
 			</div>
 		</div>

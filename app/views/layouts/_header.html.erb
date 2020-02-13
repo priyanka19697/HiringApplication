@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light"  >
+<nav class="navbar navbar-expand-lg navbar-light"  >
 	<a class="navbar-brand" href="#">
-		BeautifulCode
+		<img src="https://www.beautifulcode.co/assets/logo-9bfde9e3d927e22049e07f53c02aecf80072413feb5e6af98684f9d554bf3b85.svg" width="150" height="30" class="d-inline-block align-top" />
 	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -10,19 +10,19 @@
 		<ul class="navbar-nav mr-auto">
 			<% if session[:role] == "HIRING MANAGER"%>
 				<li class="nav-item active">
-					<a class="nav-link" href="/manager">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-link col-text-primary" href="/manager">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<a class="nav-link dropdown-toggle col-text-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Applications
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="/applications/new">Create</a>
-						<a class="dropdown-item" href="/openapplications">Open </a>
-						<a class="dropdown-item" href="/inprogressapplications/">InProgress</a>
-						<a class="dropdown-item" href="/acceptedapplications">Accepted-closed</a>
-						<a class="dropdown-item" href="/rejectedapplications">Rejected-closed</a>
-						<a class="dropdown-item" href="/applications">all</a>
+						<a class="dropdown-item col-text-primary" href="/applications/new">Create</a>
+						<a class="dropdown-item col-text-primary" href="/openapplications">Open </a>
+						<a class="dropdown-item col-text-primary" href="/inprogressapplications/">InProgress</a>
+						<a class="dropdown-item col-text-primary" href="/acceptedapplications">Accepted-closed</a>
+						<a class="dropdown-item col-text-primary" href="/rejectedapplications">Rejected-closed</a>
+						<a class="dropdown-item col-text-primary" href="/applications">all</a>
 					</div>
 				</li>
 			<% else %>
@@ -33,7 +33,7 @@
 
 		</ul>
 		<form class="form-inline my-2 my-lg-0">
-			<button class="btn btn-warning"><%= link_to "Log out", logout_path %></button>
+			<button class="btn col-fg-white col-bg-primary"><%= link_to "Log out", logout_path %></button>
 		</form>
 	</div>
 </nav>
